@@ -1,0 +1,169 @@
+{
+  "model_version": "rf-ac-predictor-v1.0",
+  "trained_at": "2026-11-26T06:46:55+00:00",
+  "metrics": {
+    "accuracy": 0.9748,
+    "precision": 0.8802,
+    "recall": 0.8333,
+    "f1_score": 0.8561,
+    "roc_auc": 0.9714,
+    "pr_auc": 0.9099,
+    "confusion_matrix": {
+      "matrix": [
+        [
+          5832,
+          66
+        ],
+        [
+          97,
+          485
+        ]
+      ],
+      "tn": 5832,
+      "fp": 66,
+      "fn": 97,
+      "tp": 485,
+      "labels": [
+        "No Failure (0)",
+        "Failure <=24h (1)"
+      ]
+    },
+    "classification_report": {
+      "No Failure (0)": {
+        "precision": 0.9836397368864901,
+        "recall": 0.9888097660223805,
+        "f1-score": 0.9862179758180435,
+        "support": 5898.0
+      },
+      "Failure <=24h (1)": {
+        "precision": 0.8802177858439202,
+        "recall": 0.8333333333333334,
+        "f1-score": 0.8561341571050309,
+        "support": 582.0
+      },
+      "accuracy": 0.9748456790123456,
+      "macro avg": {
+        "precision": 0.9319287613652052,
+        "recall": 0.911071549677857,
+        "f1-score": 0.9211760664615372,
+        "support": 6480.0
+      },
+      "weighted avg": {
+        "precision": 0.9743509135058149,
+        "recall": 0.9748456790123456,
+        "f1-score": 0.9745345217299303,
+        "support": 6480.0
+      }
+    },
+    "classification_report_text": "                   precision    recall  f1-score   support\n\n   No Failure (0)       0.98      0.99      0.99      5898\nFailure <=24h (1)       0.88      0.83      0.86       582\n\n         accuracy                           0.97      6480\n        macro avg       0.93      0.91      0.92      6480\n     weighted avg       0.97      0.97      0.97      6480\n",
+    "feature_importance": [
+      {
+        "feature": "ac_outlet_temp",
+        "importance": 0.357324
+      },
+      {
+        "feature": "room_temp",
+        "importance": 0.250759
+      },
+      {
+        "feature": "ac_inlet_temp",
+        "importance": 0.17772
+      },
+      {
+        "feature": "humidity",
+        "importance": 0.110141
+      },
+      {
+        "feature": "compressor_current",
+        "importance": 0.080391
+      },
+      {
+        "feature": "fan_speed",
+        "importance": 0.023665
+      }
+    ],
+    "accuracy_limitation_explanation": "In predictive maintenance for server room cooling equipment, failure events within the next 24 hours are relatively uncommon compared to normal operating intervals (typically 10-15% positive prevalence in this dataset, and often <2% in production). A naive classifier that always predicts 'No Failure' can achieve 85-98% accuracy while missing 100% of impending failures (0% recall), leading to catastrophic thermal shutdowns. Therefore, Recall (catching real failures before overheat), Precision (avoiding alert fatigue), F1-score, PR-AUC, and Confusion Matrix analysis are essential alongside accuracy."
+  },
+  "dataset_info": {
+    "dataset_path": "B:\\Business Intelligence and Data Analytics\\ServerRoomACPredictor\\data\\historical\\server_room_ac_historical.csv",
+    "total_rows": 25920,
+    "train_rows": 19440,
+    "test_rows": 6480,
+    "split_method": "Chronological 75/25 split (prevents temporal data leakage)",
+    "split_cutoff_timestamp": "2026-03-09T12:00:00+00:00",
+    "train_positive_rate": 0.0898,
+    "test_positive_rate": 0.0898,
+    "missing_values_total": 3923,
+    "units": [
+      "AC-01",
+      "AC-02",
+      "AC-03"
+    ],
+    "features": [
+      "room_temp",
+      "ac_outlet_temp",
+      "ac_inlet_temp",
+      "humidity",
+      "compressor_current",
+      "fan_speed"
+    ],
+    "prediction_horizon_hours": 24,
+    "limitations": "Model is trained on physics-informed synthetic historical CRAC degradation data. Real-world deployment requires fine-tuning on site-specific failure logs."
+  },
+  "baseline_stats": {
+    "room_temp": {
+      "mean": 21.6766,
+      "std": 0.8091,
+      "median": 21.68,
+      "p05": 20.34,
+      "p95": 22.98,
+      "min": 19.07,
+      "max": 25.08
+    },
+    "ac_outlet_temp": {
+      "mean": 13.421,
+      "std": 1.0849,
+      "median": 13.39,
+      "p05": 11.72,
+      "p95": 15.19,
+      "min": 9.52,
+      "max": 19.6
+    },
+    "ac_inlet_temp": {
+      "mean": 23.9857,
+      "std": 0.9312,
+      "median": 23.98,
+      "p05": 22.49,
+      "p95": 25.49,
+      "min": 20.93,
+      "max": 28.65
+    },
+    "humidity": {
+      "mean": 46.6439,
+      "std": 3.1726,
+      "median": 46.67,
+      "p05": 41.6,
+      "p95": 51.72,
+      "min": 36.44,
+      "max": 57.32
+    },
+    "compressor_current": {
+      "mean": 13.6189,
+      "std": 0.9808,
+      "median": 13.6,
+      "p05": 12.06,
+      "p95": 15.2,
+      "min": 10.69,
+      "max": 18.22
+    },
+    "fan_speed": {
+      "mean": 1634.589,
+      "std": 55.3975,
+      "median": 1635.9,
+      "p05": 1546.6,
+      "p95": 1721.3,
+      "min": 1258.1,
+      "max": 1812.8
+    }
+  }
+}
